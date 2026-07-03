@@ -6,6 +6,22 @@ FIFA World Cup. No black-box classifier — every number is explainable:
 **Elo ratings** (team strength from history) → **Poisson goal model** (scores
 per match) → **Monte Carlo** (simulate the bracket thousands of times).
 
+## How it works at a glance
+
+The model is a pipeline: each stage's output feeds the next. We turn decades of
+results into a strength number per team, use those numbers to simulate any
+single match, then simulate the whole knockout draw thousands of times to see
+how often each team lifts the trophy.
+
+<p align="center"><img src="docs/pipeline.svg" alt="Predictor pipeline: historical results to Elo ratings to match simulator to shootout model to Monte Carlo bracket to champion probabilities" width="620"></p>
+
+The engine that starts it all, Elo, rates every team with a single number.
+Before a match it turns the **gap** between two ratings into a win probability
+using an S-shaped (logistic) curve — a bigger lead means a higher, but never
+certain, chance of winning:
+
+<p align="center"><img src="docs/elo_curve.svg" alt="Logistic curve mapping Elo rating difference to win probability" width="680"></p>
+
 ## Status
 
 | Phase | What it does | State |
@@ -23,10 +39,13 @@ date order and maintains a running strength rating for all 321 national teams.
 
 For each match:
 
-1. **Predict** the home team's expected result from the rating gap, via the
-   logistic curve `E = 1 / (1 + 10^(-Δ/400))`. A 400-point gap ≈ a 10-to-1
-   favorite. Home advantage (+65) is added to the expectation, but dropped on
-   neutral ground (all World Cup knockouts).
+1. **Predict** the home team's expected score from the rating gap, via the
+   logistic formula
+
+$$E_{\text{home}} = \frac{1}{1 + 10^{-(R_{\text{home}} - R_{\text{away}})/400}}$$
+
+   A 400-point gap ≈ a 10-to-1 favorite. Home advantage (+65) is added to the
+   expectation, but dropped on neutral ground (all World Cup knockouts).
 2. **Observe** the actual result (win 1.0 / draw 0.5 / loss 0.0).
 3. **Update** `R_new = R_old + K · G · (actual − expected)`.
 

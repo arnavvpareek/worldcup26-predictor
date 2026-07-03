@@ -1,0 +1,33 @@
+<svg width="620" viewBox="0 0 680 548" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Pipeline from historical match data to a predicted World Cup champion">
+<title>World Cup 2026 predictor pipeline</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#9a9a94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<rect x="170" y="40" width="340" height="54" rx="10" fill="#444441"/>
+<text x="340" y="67" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Historical match results</text>
+<text x="340" y="85" text-anchor="middle" fill="#c9c8c2" font-size="12">25,427 games since 2000</text>
+<line x1="340" y1="94" x2="340" y2="124" stroke="#9a9a94" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="170" y="124" width="340" height="54" rx="10" fill="#0F6E56"/>
+<text x="340" y="151" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Phase 1 &#183; Elo engine</text>
+<text x="340" y="169" text-anchor="middle" fill="#9FE1CB" font-size="12">replay history to team strength</text>
+<line x1="340" y1="178" x2="340" y2="208" stroke="#9a9a94" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="170" y="208" width="340" height="54" rx="10" fill="#0F6E56"/>
+<text x="340" y="235" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Phase 2 &#183; Match simulator</text>
+<text x="340" y="253" text-anchor="middle" fill="#9FE1CB" font-size="12">Elo gap to Poisson goals</text>
+<line x1="340" y1="262" x2="340" y2="292" stroke="#9a9a94" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="170" y="292" width="340" height="54" rx="10" fill="#0F6E56"/>
+<text x="340" y="319" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Phase 3 &#183; Shootout model</text>
+<text x="340" y="337" text-anchor="middle" fill="#9FE1CB" font-size="12">penalty odds from data</text>
+<line x1="340" y1="346" x2="340" y2="376" stroke="#9a9a94" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="170" y="376" width="340" height="54" rx="10" fill="#0F6E56"/>
+<text x="340" y="403" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Phase 4 &#183; Monte Carlo bracket</text>
+<text x="340" y="421" text-anchor="middle" fill="#9FE1CB" font-size="12">simulate the draw 10,000 times</text>
+<line x1="340" y1="430" x2="340" y2="460" stroke="#9a9a94" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="170" y="460" width="340" height="54" rx="10" fill="#993C1D"/>
+<text x="340" y="487" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="500">Champion + probabilities</text>
+<text x="340" y="505" text-anchor="middle" fill="#F0997B" font-size="12">each team's odds per round</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg width="680" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Elo expected-score logistic curve">
+<title>Elo expected-score logistic curve</title>
+<text x="80" y="46" text-anchor="start" fill="#6b6a66" font-size="13">expected score (win probability)</text>
+<line x1="80" y1="60" x2="80" y2="300" stroke="#B4B2A9" stroke-width="1"/>
+<line x1="80" y1="300" x2="620" y2="300" stroke="#B4B2A9" stroke-width="1"/>
+<line x1="80" y1="180" x2="620" y2="180" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="72" y="64" text-anchor="end" fill="#6b6a66" font-size="12">1.0</text>
+<text x="72" y="184" text-anchor="end" fill="#6b6a66" font-size="12">0.5</text>
+<text x="72" y="304" text-anchor="end" fill="#6b6a66" font-size="12">0</text>
+<text x="80" y="320" text-anchor="middle" fill="#6b6a66" font-size="12">-800</text>
+<text x="215" y="320" text-anchor="middle" fill="#6b6a66" font-size="12">-400</text>
+<text x="350" y="320" text-anchor="middle" fill="#6b6a66" font-size="12">0</text>
+<text x="485" y="320" text-anchor="middle" fill="#6b6a66" font-size="12">+400</text>
+<text x="620" y="320" text-anchor="middle" fill="#6b6a66" font-size="12">+800</text>
+<text x="350" y="345" text-anchor="middle" fill="#6b6a66" font-size="13">rating difference (home minus away)</text>
+<polyline fill="none" stroke="#1D9E75" stroke-width="2.5" points="80,298 107,296 134,294 161,291 188,286 215,278 242,267 269,252 296,232 323,207 350,180 377,153 404,128 431,108 458,93 485,82 512,74 539,69 566,66 593,64 620,62"/>
+<circle cx="215" cy="278" r="4" fill="#888780"/>
+<text x="150" y="294" text-anchor="start" fill="#6b6a66" font-size="12">-400 Elo, 9%</text>
+<circle cx="350" cy="180" r="4" fill="#888780"/>
+<text x="345" y="204" text-anchor="middle" fill="#6b6a66" font-size="12">even game, 50%</text>
+<circle cx="485" cy="82" r="4.5" fill="#BA7517"/>
+<text x="478" y="64" text-anchor="end" fill="#854F0B" font-size="13">+400 Elo, 91% (a 10-to-1 favourite)</text>
+</svg>
