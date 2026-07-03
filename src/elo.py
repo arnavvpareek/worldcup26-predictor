@@ -18,6 +18,8 @@ goal-difference multiplier (bigger wins move ratings more). Whatever one team
 gains the other loses, so the system is zero-sum and self-calibrating.
 """
 
+import os
+
 import pandas as pd
 
 
@@ -158,9 +160,66 @@ def run_elo(df: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values("rating", ascending=False).reset_index(drop=True)
 
 
-def load_matches(path: str, start_year: int = START_YEAR) -> pd.DataFrame:
-    """Load results.csv, keep completed matches from `start_year` on, sort."""
+def replay_history(df: pd.DataFrame) -> pd.DataFrame:
+    """Replay every match and record each team's rating *before* it was played.
+
+    Same loop as `run_elo`, but instead of only the final table it returns one
+    row per match with the pre-match ratings and the effective rating gap
+    (home advantage folded in, dropped on neutral ground). Phase 2 uses this
+    to calibrate goals-vs-Elo and to backtest predictions on pre-match state.
+    """
+    ratings: dict[str, float] = {}
+    records = []
+
+    for row in df.itertuples(index=False):
+        home, away = row.home_team, row.away_team
+        r_home = ratings.get(home, BASE_RATING)
+        r_away = ratings.get(away, BASE_RATING)
+
+        eff_gap = r_home + (0.0 if row.neutral else HOME_ADV) - r_away
+        records.append(
+            {
+                "date": row.date,
+                "home_team": home,
+                "away_team": away,
+                "home_score": row.home_score,
+                "away_score": row.away_score,
+                "tournament": row.tournament,
+                "neutral": row.neutral,
+                "home_elo_pre": r_home,
+                "away_elo_pre": r_away,
+                "eff_gap": eff_gap,
+            }
+        )
+
+        exp_home = expected_score(r_home, r_away, row.neutral)
+        act_home = actual_score(row.home_score, row.away_score)
+        k = classify_k(row.tournament)
+        g = goal_diff_multiplier(row.home_score - row.away_score)
+        ratings[home] = r_home + k * g * (act_home - exp_home)
+        ratings[away] = r_away + k * g * ((1 - act_home) - (1 - exp_home))
+
+    return pd.DataFrame(records)
+
+
+def load_matches(
+    path: str = "data/raw/results.csv",
+    start_year: int = START_YEAR,
+    manual_path: str = "data/raw/results_2026_manual.csv",
+) -> pd.DataFrame:
+    """Load results.csv, keep completed matches from `start_year` on, sort.
+
+    `results.csv` ships the full 2026 fixture list with blank scores for
+    unplayed games (dropped below). As real results land after the data's
+    cutoff, we append them via `manual_path` so every phase runs on ratings
+    that stay current — this is also the hook Phase 5 uses to log results.
+    """
     df = pd.read_csv(path)
+
+    # Append any manually-entered post-cutoff results (e.g. live WC games).
+    if manual_path and os.path.exists(manual_path):
+        df = pd.concat([df, pd.read_csv(manual_path)], ignore_index=True)
+
     df["date"] = pd.to_datetime(df["date"])
 
     # Drop any rows without a recorded score (future/blank fixtures).
