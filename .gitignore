@@ -19,3 +19,4 @@ Thumbs.db
 # but ignore any scratch experiments.
 scratch/
 *.tmp
+.xgcache/
