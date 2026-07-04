@@ -54,16 +54,6 @@ across all the branching routes, not the likeliest champion.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
-## Status
-
-| Phase | What it does | State |
-|---|---|---|
-| 1 | Elo rating engine built from historical results | ✅ done |
-| 2 | Match simulator (Elo → Poisson goals → outcomes) | ✅ done |
-| 3 | Penalty-shootout calibration from `shootouts.csv` | ✅ done |
-| 4 | Monte Carlo bracket simulation | ✅ done |
-| 5 | Output tables + predicted-vs-actual tracking | ✅ done |
-
 ## Phase 1 — the Elo engine
 
 `src/elo.py` replays every international match since 2000 (25,425 games) in
