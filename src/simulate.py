@@ -285,6 +285,8 @@ def main() -> None:
         ("Mexico", "England"),
         ("Portugal", "Spain"),
         ("United States", "Belgium"),
+        ("Argentina", "Egypt"),
+        ("Switzerland", "Colombia"),
     ]
     print("Round-of-16 predictions (neutral venue, knockout):")
     print("  %-24s %-8s %-8s  %s" % ("match", "goals", "advance", "favorite"))
