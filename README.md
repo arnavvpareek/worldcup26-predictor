@@ -116,6 +116,26 @@ and winners advance up the tree. Counting the outcomes yields each team's
 probability of reaching every round and winning the cup (the results above),
 saved to `data/processed/tournament_probabilities.csv`.
 
+## Phase 6 — xG refinement (optional layer)
+
+Elo trusts scorelines, which are noisy. `src/fetch_xg.py` pulls real
+shot-level **xG** from [StatsBomb's free open data](https://github.com/statsbomb/open-data)
+for each team's most recent major tournament (Euro 2024, Copa América 2024,
+AFCON 2023 — 15 of 16 teams; Norway isn't covered and is left unchanged).
+`src/xg_adjust.py` then nudges each rating toward what the team *deserved*:
+
+```
+luck = actual goal-diff/game − xG goal-diff/game
+adjustment = −luck × (Elo per goal) × trust × sample_confidence   (capped ±30)
+```
+
+Teams whose results outran their chances get shaved; those who underperformed
+get bumped — shrunk for small samples so xG **refines** Elo rather than
+overriding it. The headline effect: **France rises** (created the most chances
+at Euro 2024 but finished poorly) and **Spain drops** (won it on clinical
+finishing that xG expects to regress). Output:
+`data/processed/tournament_probabilities_xg.csv`.
+
 ## Run it
 
 ```bash
@@ -124,6 +144,8 @@ python src/elo.py        # Phase 1 — ratings -> data/processed/elo_ratings.csv
 python src/simulate.py   # Phase 2/3 — calibration, backtest, R16 predictions
 python src/bracket.py    # Phase 4/5 — full tournament odds + predicted bracket
 python src/track.py      # Phase 5 — log predictions, score rolling accuracy
+python src/fetch_xg.py   # Phase 6 — pull StatsBomb xG -> data/raw/team_xg.csv
+python src/xg_adjust.py  # Phase 6 — xG-adjusted odds (before/after comparison)
 ```
 
 ## Live tracking (predicted vs actual)
