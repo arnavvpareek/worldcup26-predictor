@@ -34,6 +34,11 @@ from elo import (  # noqa: E402
 
 # Extra time is 30 minutes vs 90, so goal rates scale by ~1/3.
 EXTRA_TIME_FRACTION = 30.0 / 90.0
+# Phase 3: shootouts barely depend on strength. Fit to shootouts.csv, the
+# favorite wins only ~54%, so we reuse the logistic shape with a much wider
+# scale than open play (1250 vs 400) — near a coin flip, mild lean to the
+# stronger side.
+SHOOTOUT_SCALE = 1250.0
 # Max goals per team when building the analytic scoreline grid (>=10 covers
 # virtually all realistic matches; the Poisson tail beyond it is negligible).
 MAX_GOALS = 10
@@ -125,6 +130,16 @@ def advance_prob(
     )
     survive_draw = et_home + et_draw * pen_home
     return p_home + p_draw * survive_draw
+
+
+def shootout_prob(elo_home: float, elo_away: float) -> float:
+    """Home team's penalty-shootout win probability (Phase 3, calibrated).
+
+    Same logistic form as match play but a far wider scale, so it sits near
+    50/50 with only a mild edge to the stronger team — matching the ~54%
+    favorite win-rate measured from shootouts.csv.
+    """
+    return 1.0 / (1.0 + 10 ** (-(elo_home - elo_away) / SHOOTOUT_SCALE))
 
 
 def win_probability(elo_home: float, elo_away: float, neutral: bool) -> float:
@@ -293,7 +308,7 @@ def main() -> None:
     for home, away in r16:
         eh, ea = ratings[home], ratings[away]
         lh, la = expected_goals(eh, ea, neutral=True, params=params)
-        adv_home = advance_prob(lh, la)
+        adv_home = advance_prob(lh, la, pen_home=shootout_prob(eh, ea))
         fav, p = (home, adv_home) if adv_home >= 0.5 else (away, 1 - adv_home)
         print("  %-10s v %-10s  %.1f-%.1f   %4.0f%%    %s"
               % (home, away, lh, la, 100 * adv_home, f"{fav} {p:.0%}"))
