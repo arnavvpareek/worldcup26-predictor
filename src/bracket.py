@@ -33,19 +33,21 @@ from simulate import (  # noqa: E402
 N_SIMS = 20000
 SEED = 42
 
-# Round-of-16 entrants in bracket order. Adjacent pairs are the R16 ties, and
-# the winners meet as they climb the tree, so the quarter-finals are
-# (match1 vs match2), (match3 vs match4), ... This is the standard bracket
-# layout read off the official R16 draw; if the real QF pairings differ, only
-# this ordering needs to change.
+# Round-of-16 entrants in bracket order, read off the official 2026 draw.
+# Adjacent pairs are the R16 ties, and winners climb the tree, so the
+# quarter-finals are (match1 vs match2), (match3 vs match4), ... The first
+# eight teams are the left half of the draw, the last eight the right half —
+# so France, Spain, Portugal and Belgium can only meet up to the semi-final.
 R16_BRACKET = [
-    "Canada", "Morocco",          # R16 match 1  \_ QF1
-    "Brazil", "Norway",           # R16 match 2  /
+    # --- left half ---
+    "Paraguay", "France",         # R16 match 1  \_ QF1
+    "Canada", "Morocco",          # R16 match 2  /
     "Portugal", "Spain",          # R16 match 3  \_ QF2
-    "Argentina", "Egypt",         # R16 match 4  /
-    "Paraguay", "France",         # R16 match 5  \_ QF3
+    "United States", "Belgium",   # R16 match 4  /
+    # --- right half ---
+    "Brazil", "Norway",           # R16 match 5  \_ QF3
     "Mexico", "England",          # R16 match 6  /
-    "United States", "Belgium",   # R16 match 7  \_ QF4
+    "Argentina", "Egypt",         # R16 match 7  \_ QF4
     "Switzerland", "Colombia",    # R16 match 8  /
 ]
 

@@ -26,29 +26,31 @@ certain, chance of winning:
 
 Running the full knockout bracket **20,000 times** from the Round of 16 gives
 every team a probability of reaching each round and lifting the trophy. Three
-teams stand clear — Argentina, France and Spain — with France boosted by a
-noticeably softer half of the draw.
+teams stand clear and close together — France, Spain and Argentina. The draw is
+lopsided: **France, Spain and Portugal share the left half** (so France and
+Spain can only meet in the semi-final), while **Argentina and Brazil** anchor
+the right, so exactly one of the big three from each half reaches the final.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
 
 | Team | Reach QF | Reach SF | Reach Final | **Win Cup** |
 |---|---:|---:|---:|---:|
-| Argentina | 92% | 50% | 34% | **24%** |
-| France | 83% | 58% | 45% | **22%** |
-| Spain | 67% | 38% | 26% | **17%** |
-| Brazil | 72% | 45% | 19% | **10%** |
-| England | 52% | 21% | 14% | **6%** |
-| Colombia | 59% | 39% | 15% | **5%** |
-| Morocco | 68% | 34% | 11% | **5%** |
-| Mexico | 48% | 17% | 10% | **3%** |
-| Portugal | 33% | 12% | 6% | **3%** |
+| France | 83% | 65% | 40% | **26%** |
+| Spain | 66% | 58% | 34% | **22%** |
+| Argentina | 90% | 66% | 40% | **21%** |
+| Brazil | 72% | 43% | 21% | **8%** |
+| England | 52% | 25% | 12% | **5%** |
+| Morocco | 69% | 23% | 10% | **4%** |
+| Portugal | 34% | 25% | 10% | **4%** |
+| Colombia | 58% | 20% | 9% | **3%** |
+| Mexico | 48% | 21% | 9% | **3%** |
 | *others* | | | | **<2% each** |
 
-The single most-likely bracket (favourite at every tie) ends **Spain champion**,
-beating France in the final. Note this differs from the title-odds table: the
-*modal path* and the team with the *highest overall win probability* need not
-match, because Argentina and France reach the final via more (easier) routes
-than Spain, who must pass Argentina and Brazil in one half.
+The single most-likely bracket (favourite at every tie) runs **France** past
+Spain in the semi-final and past Argentina in the final — predicted champion
+**France**. Note the *modal path* need not match the *highest overall win
+probability*: a team can be the single likeliest winner of any given match yet,
+across all the branching routes, not the likeliest champion.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
