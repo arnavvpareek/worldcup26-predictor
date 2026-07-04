@@ -10,7 +10,7 @@ From the grid we read off P(home win) / P(draw) / P(away win) analytically,
 and for knockouts we resolve draws with extra time then penalties. The same
 model can be sampled (`simulate_match`) to drive the Phase 4 Monte Carlo.
 
-Nothing about scoring is assumed: the goals-vs-Elo relationship is fit from
+Nothing about scoring is assumed: The goals-vs-Elo relationship is fit from
 the historical data itself (see `calibrate`).
 """
 
@@ -44,9 +44,9 @@ SHOOTOUT_SCALE = 1250.0
 MAX_GOALS = 10
 
 
-# --------------------------------------------------------------------------- #
+
 # Calibration: fit goals as a function of the Elo gap, from history
-# --------------------------------------------------------------------------- #
+
 def calibrate(history: pd.DataFrame) -> dict:
     """Fit two linear relationships from historical (pre-match) data.
 
@@ -88,9 +88,9 @@ def expected_goals(
     return max(0.05, lam_home), max(0.05, lam_away)
 
 
-# --------------------------------------------------------------------------- #
+
 # Analytic outcome probabilities (no Monte Carlo noise)
-# --------------------------------------------------------------------------- #
+
 def _poisson_pmf(lam: float, max_k: int = MAX_GOALS) -> np.ndarray:
     """Probability of 0..max_k goals for rate lam (last cell absorbs the tail)."""
     ks = np.arange(max_k + 1)
@@ -151,9 +151,9 @@ def win_probability(elo_home: float, elo_away: float, neutral: bool) -> float:
     return expected_score(elo_home, elo_away, neutral)
 
 
-# --------------------------------------------------------------------------- #
+
 # Sampling (for the Phase 4 Monte Carlo bracket)
-# --------------------------------------------------------------------------- #
+
 def simulate_match(
     elo_home: float,
     elo_away: float,
@@ -187,9 +187,8 @@ def simulate_match(
     return result
 
 
-# --------------------------------------------------------------------------- #
 # Validation
-# --------------------------------------------------------------------------- #
+
 def validate_poisson(history: pd.DataFrame, params: dict) -> None:
     """Sanity-check the Poisson layer: predicted vs actual draw rate & goals."""
     lam = history.apply(
@@ -243,9 +242,9 @@ def backtest(history: pd.DataFrame, params: dict, mask) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# --------------------------------------------------------------------------- #
+
 # Main
-# --------------------------------------------------------------------------- #
+
 def main() -> None:
     matches = load_matches()
     history = replay_history(matches)
@@ -263,7 +262,7 @@ def main() -> None:
     validate_poisson(history, params)
     print()
 
-    # --- Backtest 1: the brief's ask — 2026 World Cup knockout matches --- #
+    #  Backtest 1: the brief's ask — 2026 World Cup knockout matches #
     history["dt"] = pd.to_datetime(history["date"])
     wc_ko = (
         (history["tournament"] == "FIFA World Cup")

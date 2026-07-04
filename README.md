@@ -22,14 +22,14 @@ certain, chance of winning:
 
 <p align="center"><img src="docs/elo_curve.svg" alt="Logistic curve mapping Elo rating difference to win probability" width="680"></p>
 
-## Predicted results — who wins the 2026 World Cup?
+## Predicted results — Who wins the 2026 World Cup?
 
 Running the full knockout bracket **20,000 times** from the Round of 16 gives
 every team a probability of reaching each round and lifting the trophy. Three
 teams stand clear and close together — France, Spain and Argentina. The draw is
 lopsided: **France, Spain and Portugal share the left half** (so France and
 Spain can only meet in the semi-final), while **Argentina and Brazil** anchor
-the right, so exactly one of the big three from each half reaches the final.
+the right half, so exactly one of the big three from each half reaches the final.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
 
@@ -48,23 +48,11 @@ the right, so exactly one of the big three from each half reaches the final.
 
 The single most-likely bracket (favourite at every tie) runs **France** past
 Spain in the semi-final and past Argentina in the final — predicted champion
-**France**. Note the *modal path* need not match the *highest overall win
-probability*: a team can be the single likeliest winner of any given match yet,
-across all the branching routes, not the likeliest champion.
+**France**. 
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
-## Status
-
-| Phase | What it does | State |
-|---|---|---|
-| 1 | Elo rating engine built from historical results | ✅ done |
-| 2 | Match simulator (Elo → Poisson goals → outcomes) | ✅ done |
-| 3 | Penalty-shootout calibration from `shootouts.csv` | ✅ done |
-| 4 | Monte Carlo bracket simulation | ✅ done |
-| 5 | Output tables + predicted-vs-actual tracking | ✅ done |
-
-## Phase 1 — the Elo engine
+## Phase 1 — The Elo engine
 
 `src/elo.py` replays every international match since 2000 (25,425 games) in
 date order and maintains a running strength rating for all 321 national teams.
@@ -100,7 +88,7 @@ as draws (only the 120-minute score is recorded), so a knockout won on
 penalties earns no "win" bump. `shootouts.csv` exists to correct for this and
 is used in Phase 3.
 
-## Phase 2 — the match simulator
+## Phase 2 — The match simulator
 
 `src/simulate.py` turns a rating gap into a scoreline. The goals-vs-Elo
 relationship is **calibrated from history, not assumed**: binning 25k matches
@@ -113,7 +101,7 @@ Validated on pre-match ratings only: predicted draw rate 21% vs 23% actual,
 average goals 2.76 vs 2.76, and the Elo favourite wins **76.6%** of decided
 matches across 12,000+ games since 2010 (13/13 on the 2026 R32 knockouts).
 
-## Phase 3 — shootout calibration
+## Phase 3 — Shootout calibration
 
 `shootouts.csv` says the favourite wins a shootout only **~54%** of the time, so
 penalties are close to a coin flip. `shootout_prob` reuses the logistic curve

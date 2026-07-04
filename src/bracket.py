@@ -6,10 +6,6 @@ is drawn from the Phase 2 goal model (Poisson scorelines), knockout ties are
 broken by extra time then the Phase 3 shootout model, and winners advance up a
 standard single-elimination tree. Counting the outcomes turns one bracket into
 a probability for every team to reach each round and to win the cup.
-
-Why simulate instead of just multiplying probabilities: a team's path depends
-on who it meets next, which is itself random. Monte Carlo lets those branching
-possibilities interact naturally — the law of large numbers does the rest.
 """
 
 from __future__ import annotations

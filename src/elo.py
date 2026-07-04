@@ -23,9 +23,9 @@ import os
 import pandas as pd
 
 
-# --------------------------------------------------------------------------- #
+
 # Configuration
-# --------------------------------------------------------------------------- #
+
 BASE_RATING = 1500.0   # every team's starting strength before it plays a game
 HOME_ADV = 65.0        # rating points a team is effectively worth at home
 SCALE = 400.0          # Elo scale: a 400-point gap == a 10-to-1 favorite
