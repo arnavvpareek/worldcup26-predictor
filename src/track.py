@@ -17,6 +17,7 @@ Workflow per round:
 from __future__ import annotations
 
 import os
+import re
 import sys
 
 import pandas as pd
@@ -32,6 +33,9 @@ from simulate import (  # noqa: E402
 )
 
 LOG_PATH = "data/processed/knockout_tracking.csv"
+README_PATH = "README.md"
+ROUND_ORDER = [("R16", "Round of 16"), ("QF", "Quarter-finals"),
+               ("SF", "Semi-finals"), ("Final", "Final")]
 
 # Knockout ties, added round by round as the draw confirms them.
 FIXTURES = [
@@ -58,6 +62,70 @@ def predict(home: str, away: str, ratings: dict, params: dict) -> tuple:
     if p_home >= 0.5:
         return home, round(100 * p_home, 1), exp
     return away, round(100 * (1 - p_home), 1), exp
+
+
+def render_scorecard(log: pd.DataFrame) -> str:
+    """Build the markdown live-scorecard block from the tracking log."""
+    total_c = total_d = 0
+    summary = []
+    for key, name in ROUND_ORDER:
+        sub = log[log["round"] == key]
+        if len(sub) == 0:
+            summary.append(f"| {name} | – | – |")
+            continue
+        decided = sub[sub["actual_advance"].astype(str).str.strip() != ""]
+        d = len(decided)
+        c = int(decided["hit"].astype(int).sum()) if d else 0
+        total_c += c
+        total_d += d
+        result = f"{c}/{d} correct" if d else "pending"
+        summary.append(f"| {name} | {len(sub)} picks | {result} |")
+
+    pct = f"{round(100 * total_c / total_d)}%" if total_d else "—"
+    lines = [
+        f"## Live scorecard · {total_c}/{total_d} correct ({pct})",
+        "",
+        "Every pick is committed to git **before kickoff**, then graded as "
+        "results land — so this fills in round by round as WC2026 plays out.",
+        "",
+        "| Round | Predicted | Result |",
+        "|---|---|---|",
+        *summary,
+        "",
+    ]
+
+    for key, name in ROUND_ORDER:
+        sub = log[log["round"] == key]
+        if len(sub) == 0:
+            continue
+        lines += [f"<details><summary>{name} picks</summary>", "",
+                  "| Match | Model pick | Confidence | Actual | Hit |",
+                  "|---|---|---|---|---|"]
+        for r in sub.itertuples(index=False):
+            actual = str(r.actual_advance).strip() or "–"
+            h = str(r.hit).strip()
+            hit = "–" if h == "" else ("✅" if int(float(h)) == 1 else "❌")
+            lines.append(f"| {r.home} v {r.away} | {r.pred_advance} | "
+                         f"{float(r.pred_prob):.0f}% | {actual} | {hit} |")
+        lines += ["", "</details>", ""]
+
+    return "\n".join(lines).strip()
+
+
+def update_readme(block: str, path: str = README_PATH) -> None:
+    """Replace the content between the LIVE-ACCURACY markers in the README."""
+    start, end = "<!-- LIVE-ACCURACY:START -->", "<!-- LIVE-ACCURACY:END -->"
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
+    if start not in text or end not in text:
+        return
+    replacement = f"{start}\n{block}\n{end}"
+    text = re.sub(re.escape(start) + ".*?" + re.escape(end), replacement,
+                  text, flags=re.DOTALL)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
 
 
 def main() -> None:
@@ -94,6 +162,7 @@ def main() -> None:
     log["hit"] = log.apply(score, axis=1)
     log = log[COLUMNS]
     log.to_csv(LOG_PATH, index=False)
+    update_readme(render_scorecard(log))  # refresh the README live scorecard
 
     show = ["round", "home", "away", "pred_advance", "pred_prob",
             "exp_score", "actual_advance", "hit"]

@@ -1,28 +1,39 @@
 # World Cup 2026 Predictor
 
-A from-scratch statistical model that predicts the knockout stage of the 2026
-FIFA World Cup. No black-box classifier — every number is explainable:
+Predicts every 2026 FIFA World Cup knockout match — from-scratch and fully
+explainable (**Elo → Poisson goals → Monte Carlo bracket**, no black-box
+classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
+against the tournament as it happens.
 
-**Elo ratings** (team strength from history) → **Poisson goal model** (scores
-per match) → **Monte Carlo** (simulate the bracket thousands of times).
+<!-- LIVE-ACCURACY:START -->
+## Live scorecard · 0/0 correct (—)
 
-## How it works at a glance
+Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
-The model is a pipeline: each stage's output feeds the next. We turn decades of
-results into a strength number per team, use those numbers to simulate any
-single match, then simulate the whole knockout draw thousands of times to see
-how often each team lifts the trophy.
+| Round | Predicted | Result |
+|---|---|---|
+| Round of 16 | 8 picks | pending |
+| Quarter-finals | – | – |
+| Semi-finals | – | – |
+| Final | – | – |
 
-<p align="center"><img src="docs/pipeline.svg" alt="Predictor pipeline: historical results to Elo ratings to match simulator to shootout model to Monte Carlo bracket to champion probabilities" width="620"></p>
+<details><summary>Round of 16 picks</summary>
 
-The engine that starts it all, Elo, rates every team with a single number.
-Before a match it turns the **gap** between two ratings into a win probability
-using an S-shaped (logistic) curve — a bigger lead means a higher, but never
-certain, chance of winning:
+| Match | Model pick | Confidence | Actual | Hit |
+|---|---|---|---|---|
+| Paraguay v France | France | 83% | – | – |
+| Canada v Morocco | Morocco | 69% | – | – |
+| Portugal v Spain | Spain | 67% | – | – |
+| United States v Belgium | United States | 51% | – | – |
+| Brazil v Norway | Brazil | 72% | – | – |
+| Mexico v England | England | 52% | – | – |
+| Argentina v Egypt | Argentina | 90% | – | – |
+| Switzerland v Colombia | Colombia | 59% | – | – |
 
-<p align="center"><img src="docs/elo_curve.svg" alt="Logistic curve mapping Elo rating difference to win probability" width="680"></p>
+</details>
+<!-- LIVE-ACCURACY:END -->
 
-## Predicted results — Who wins the 2026 World Cup?
+## The call — who wins the 2026 World Cup?
 
 Running the full knockout bracket **20,000 times** from the Round of 16 gives
 every team a probability of reaching each round and lifting the trophy. Three
@@ -51,6 +62,20 @@ Spain in the semi-final and past Argentina in the final — predicted champion
 **France**. 
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
+
+## How it works at a glance
+
+Each stage's output feeds the next: decades of results become a strength number
+per team, those numbers simulate any single match, and the whole knockout draw
+is simulated thousands of times to see how often each team lifts the trophy.
+
+<p align="center"><img src="docs/pipeline.svg" alt="Predictor pipeline: historical results to Elo ratings to match simulator to shootout model to Monte Carlo bracket to champion probabilities" width="620"></p>
+
+Elo rates every team with a single number; before a match it turns the **gap**
+between two ratings into a win probability via an S-shaped (logistic) curve — a
+bigger lead means a higher, but never certain, chance of winning:
+
+<p align="center"><img src="docs/elo_curve.svg" alt="Logistic curve mapping Elo rating difference to win probability" width="680"></p>
 
 ## Phase 1 — The Elo engine
 
