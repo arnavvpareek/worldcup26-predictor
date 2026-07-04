@@ -211,14 +211,23 @@ def load_matches(
 
     `results.csv` ships the full 2026 fixture list with blank scores for
     unplayed games (dropped below). As real results land after the data's
-    cutoff, we append them via `manual_path` so every phase runs on ratings
-    that stay current — this is also the hook Phase 5 uses to log results.
+    cutoff, we add them via `manual_path`. A manual row *overrides* a base-file
+    row for the same (date, home, away) match — used to correct a base score,
+    e.g. logging a knockout tied after 90 minutes as a draw rather than its
+    after-extra-time scoreline. This is also the hook Phase 5 uses to log
+    results as they happen.
     """
     df = pd.read_csv(path)
 
-    # Append any manually-entered post-cutoff results (e.g. live WC games).
+    # Merge manually-entered results, letting them override base-file rows for
+    # the same match (compared on the raw date strings, before parsing).
     if manual_path and os.path.exists(manual_path):
-        df = pd.concat([df, pd.read_csv(manual_path)], ignore_index=True)
+        manual = pd.read_csv(manual_path)
+        key = ["date", "home_team", "away_team"]
+        overridden = set(map(tuple, manual[key].values))
+        base_keys = df[key].apply(tuple, axis=1)
+        df = df[~base_keys.isin(overridden)]
+        df = pd.concat([df, manual], ignore_index=True)
 
     df["date"] = pd.to_datetime(df["date"])
 
