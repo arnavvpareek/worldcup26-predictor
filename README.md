@@ -123,7 +123,17 @@ pip install -r requirements.txt
 python src/elo.py        # Phase 1 — ratings -> data/processed/elo_ratings.csv
 python src/simulate.py   # Phase 2/3 — calibration, backtest, R16 predictions
 python src/bracket.py    # Phase 4/5 — full tournament odds + predicted bracket
+python src/track.py      # Phase 5 — log predictions, score rolling accuracy
 ```
+
+## Live tracking (predicted vs actual)
+
+`src/track.py` locks in the model's pre-match call for every knockout tie and,
+as real results land, scores **rolling accuracy** and a **Brier score** (a
+calibration measure — 0.25 is a coin flip, lower is better). Predictions are
+written once and never recomputed, so [`knockout_tracking.csv`](data/processed/knockout_tracking.csv)
+is an honest, timestamped record of how the model does as the 2026 knockouts
+actually play out — the headline accuracy number grows with every round.
 
 ## Data
 

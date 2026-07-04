@@ -1,0 +1,9 @@
+round,home,away,pred_advance,pred_prob,exp_score,actual_advance,actual_score,decided_by,hit
+R16,Paraguay,France,France,82.8,0.8-2.2,,,,
+R16,Canada,Morocco,Morocco,68.6,1.0-1.7,,,,
+R16,Portugal,Spain,Spain,66.6,1.0-1.6,,,,
+R16,United States,Belgium,United States,51.4,1.2-1.2,,,,
+R16,Brazil,Norway,Brazil,72.2,1.7-0.9,,,,
+R16,Mexico,England,England,51.7,1.2-1.2,,,,
+R16,Argentina,Egypt,Argentina,90.0,2.5-0.6,,,,
+R16,Switzerland,Colombia,Colombia,58.7,1.1-1.4,,,,
