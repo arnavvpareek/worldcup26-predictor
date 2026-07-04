@@ -49,10 +49,17 @@ def get_json(url: str, cache_name: str):
 
 
 def match_xg(events: list) -> tuple[dict, dict]:
-    """Sum shot xG and count goals for each team in one match."""
+    """Sum shot xG and count goals for each team in one match.
+
+    Period 5 is the penalty shootout — those spot-kicks are a tiebreak, not
+    chances created in the game, so they're excluded (otherwise a team that
+    went to a shootout gets ~4 phantom xG of penalties).
+    """
     xg, goals = {}, {}
     for e in events:
         if e.get("type", {}).get("name") != "Shot":
+            continue
+        if e.get("period") == 5:  # penalty shootout, not open play
             continue
         team = e["team"]["name"]
         shot = e.get("shot", {})

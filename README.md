@@ -131,10 +131,11 @@ adjustment = −luck × (Elo per goal) × trust × sample_confidence   (capped �
 
 Teams whose results outran their chances get shaved; those who underperformed
 get bumped — shrunk for small samples so xG **refines** Elo rather than
-overriding it. The headline effect: **France rises** (created the most chances
-at Euro 2024 but finished poorly) and **Spain drops** (won it on clinical
-finishing that xG expects to regress). Output:
-`data/processed/tournament_probabilities_xg.csv`.
+overriding it. (Penalty-shootout kicks are excluded — they're a tiebreak, not
+chances created.) The headline effect: **France rises** (created good chances at
+Euro 2024 but scored just 2 goals in 6 games — wasteful, so unlucky) and
+**Spain drops** (won it on clinical finishing that xG expects to regress).
+Output: `data/processed/tournament_probabilities_xg.csv`.
 
 ## Run it
 
