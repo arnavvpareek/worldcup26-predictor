@@ -22,15 +22,45 @@ certain, chance of winning:
 
 <p align="center"><img src="docs/elo_curve.svg" alt="Logistic curve mapping Elo rating difference to win probability" width="680"></p>
 
+## Predicted results — who wins the 2026 World Cup?
+
+Running the full knockout bracket **20,000 times** from the Round of 16 gives
+every team a probability of reaching each round and lifting the trophy. Three
+teams stand clear — Argentina, France and Spain — with France boosted by a
+noticeably softer half of the draw.
+
+<p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
+
+| Team | Reach QF | Reach SF | Reach Final | **Win Cup** |
+|---|---:|---:|---:|---:|
+| Argentina | 92% | 50% | 34% | **24%** |
+| France | 83% | 58% | 45% | **22%** |
+| Spain | 67% | 38% | 26% | **17%** |
+| Brazil | 72% | 45% | 19% | **10%** |
+| England | 52% | 21% | 14% | **6%** |
+| Colombia | 59% | 39% | 15% | **5%** |
+| Morocco | 68% | 34% | 11% | **5%** |
+| Mexico | 48% | 17% | 10% | **3%** |
+| Portugal | 33% | 12% | 6% | **3%** |
+| *others* | | | | **<2% each** |
+
+The single most-likely bracket (favourite at every tie) ends **Spain champion**,
+beating France in the final. Note this differs from the title-odds table: the
+*modal path* and the team with the *highest overall win probability* need not
+match, because Argentina and France reach the final via more (easier) routes
+than Spain, who must pass Argentina and Brazil in one half.
+
+Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
+
 ## Status
 
 | Phase | What it does | State |
 |---|---|---|
 | 1 | Elo rating engine built from historical results | ✅ done |
-| 2 | Match simulator (Elo → win prob → Poisson goals) | ⏳ next |
-| 3 | Penalty-shootout calibration from `shootouts.csv` | — |
-| 4 | Monte Carlo bracket simulation | — |
-| 5 | Output, methodology write-up, predicted-vs-actual tracking | — |
+| 2 | Match simulator (Elo → Poisson goals → outcomes) | ✅ done |
+| 3 | Penalty-shootout calibration from `shootouts.csv` | ✅ done |
+| 4 | Monte Carlo bracket simulation | ✅ done |
+| 5 | Output tables + predicted-vs-actual tracking | ✅ done |
 
 ## Phase 1 — the Elo engine
 
@@ -68,15 +98,42 @@ as draws (only the 120-minute score is recorded), so a knockout won on
 penalties earns no "win" bump. `shootouts.csv` exists to correct for this and
 is used in Phase 3.
 
-### Run it
+## Phase 2 — the match simulator
+
+`src/simulate.py` turns a rating gap into a scoreline. The goals-vs-Elo
+relationship is **calibrated from history, not assumed**: binning 25k matches
+shows ~1 goal of expected margin per 174 Elo points, and total goals rise
+slightly with the mismatch. Each team's expected goals (λ) feed a **Poisson
+distribution**; crossing the two teams' distributions gives the probability of
+every scoreline, and hence win / draw / loss.
+
+Validated on pre-match ratings only: predicted draw rate 21% vs 23% actual,
+average goals 2.76 vs 2.76, and the Elo favourite wins **76.6%** of decided
+matches across 12,000+ games since 2010 (13/13 on the 2026 R32 knockouts).
+
+## Phase 3 — shootout calibration
+
+`shootouts.csv` says the favourite wins a shootout only **~54%** of the time, so
+penalties are close to a coin flip. `shootout_prob` reuses the logistic curve
+with a far wider scale (1250 vs 400) — a level tie is 50/50, a big favourite
+gets only a mild edge — replacing the earlier flat assumption for knockout ties.
+
+## Phase 4 & 5 — Monte Carlo bracket and output
+
+`src/bracket.py` plays the R16 → final **20,000 times**. Every tie is drawn from
+the Phase 2 goal model, level games go to extra time then the Phase 3 shootout,
+and winners advance up the tree. Counting the outcomes yields each team's
+probability of reaching every round and winning the cup (the results above),
+saved to `data/processed/tournament_probabilities.csv`.
+
+## Run it
 
 ```bash
 pip install -r requirements.txt
-python src/elo.py
+python src/elo.py        # Phase 1 — ratings -> data/processed/elo_ratings.csv
+python src/simulate.py   # Phase 2/3 — calibration, backtest, R16 predictions
+python src/bracket.py    # Phase 4/5 — full tournament odds + predicted bracket
 ```
-
-Outputs the top-25 ranking and writes the full table to
-`data/processed/elo_ratings.csv`.
 
 ## Data
 
