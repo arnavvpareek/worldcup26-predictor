@@ -6,13 +6,13 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 0/0 correct (—)
+## Live scorecard · 3/4 correct (75%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
 | Round | Predicted | Result |
 |---|---|---|
-| Round of 16 | 8 picks | pending |
+| Round of 16 | 8 picks | 3/4 correct |
 | Quarter-finals | – | – |
 | Semi-finals | – | – |
 | Final | – | – |
@@ -21,12 +21,12 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 
 | Match | Model pick | Confidence | Actual | Hit |
 |---|---|---|---|---|
-| Paraguay v France | France | 83% | – | – |
-| Canada v Morocco | Morocco | 69% | – | – |
+| Paraguay v France | France | 83% | France | ✅ |
+| Canada v Morocco | Morocco | 69% | Morocco | ✅ |
 | Portugal v Spain | Spain | 67% | – | – |
 | United States v Belgium | United States | 51% | – | – |
-| Brazil v Norway | Brazil | 72% | – | – |
-| Mexico v England | England | 52% | – | – |
+| Brazil v Norway | Brazil | 72% | Norway | ❌ |
+| Mexico v England | England | 52% | England | ✅ |
 | Argentina v Egypt | Argentina | 90% | – | – |
 | Switzerland v Colombia | Colombia | 59% | – | – |
 
