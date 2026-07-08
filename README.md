@@ -71,6 +71,28 @@ in the semi-final and past Argentina in the final — predicted champion
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
+### How the forecast has evolved
+
+Like any live forecast (weather, elections, betting markets), the title odds
+**update after every round** — new results are information, and ignoring them
+would be wrong on purpose. Match picks, by contrast, are locked before kickoff
+and never revised (see the scorecard above). Every snapshot below is preserved
+in the git history:
+
+| Title odds (%) | Before R16 (Jul 4) | Before QF (Jul 7) |
+|---|---:|---:|
+| Spain | 22 | **31** |
+| France | **26** | 24 |
+| Argentina | 21 | 23 |
+| England | 5 | 11 |
+| Brazil | 8 | *eliminated* |
+
+The same three teams have topped every forecast; Spain edged ahead by beating
+Portugal while drawing the weakest quarter-final opponent (Belgium), and
+France's odds dipped as Morocco — their QF opponent — kept winning big. A
+champion call is one sample; the model's real track record is the match-level
+scorecard at the top.
+
 ## How it works at a glance
 
 Each stage's output feeds the next: decades of results become a strength number
