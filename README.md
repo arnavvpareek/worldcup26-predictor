@@ -6,14 +6,14 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 3/4 correct (75%)
+## Live scorecard · 5/8 correct (62%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
 | Round | Predicted | Result |
 |---|---|---|
-| Round of 16 | 8 picks | 3/4 correct |
-| Quarter-finals | – | – |
+| Round of 16 | 8 picks | 5/8 correct |
+| Quarter-finals | 4 picks | pending |
 | Semi-finals | – | – |
 | Final | – | – |
 
@@ -23,43 +23,51 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 |---|---|---|---|---|
 | Paraguay v France | France | 83% | France | ✅ |
 | Canada v Morocco | Morocco | 69% | Morocco | ✅ |
-| Portugal v Spain | Spain | 67% | – | – |
-| United States v Belgium | United States | 51% | – | – |
+| Portugal v Spain | Spain | 67% | Spain | ✅ |
+| United States v Belgium | United States | 51% | Belgium | ❌ |
 | Brazil v Norway | Brazil | 72% | Norway | ❌ |
 | Mexico v England | England | 52% | England | ✅ |
-| Argentina v Egypt | Argentina | 90% | – | – |
-| Switzerland v Colombia | Colombia | 59% | – | – |
+| Argentina v Egypt | Argentina | 90% | Argentina | ✅ |
+| Switzerland v Colombia | Colombia | 59% | Switzerland | ❌ |
+
+</details>
+
+<details><summary>Quarter-finals picks</summary>
+
+| Match | Model pick | Confidence | Actual | Hit |
+|---|---|---|---|---|
+| France v Morocco | France | 72% | – | – |
+| Spain v Belgium | Spain | 84% | – | – |
+| Norway v England | England | 61% | – | – |
+| Argentina v Switzerland | Argentina | 80% | – | – |
 
 </details>
 <!-- LIVE-ACCURACY:END -->
 
 ## The call — who wins the 2026 World Cup?
 
-Running the full knockout bracket **20,000 times** from the Round of 16 gives
-every team a probability of reaching each round and lifting the trophy. Three
-teams stand clear and close together — France, Spain and Argentina. The draw is
-lopsided: **France, Spain and Portugal share the left half** (so France and
-Spain can only meet in the semi-final), while **Argentina and Brazil** anchor
-the right half, so exactly one of the big three from each half reaches the final.
+Re-running the bracket **20,000 times** from the real quarter-finals (ratings
+updated after every played match), **Spain is now the favourite** — they beat
+Portugal while their QF opponent (Belgium) is the weakest side left, giving
+them the clearest route to the semis. The **France–Spain semi-final is a
+literal coin flip (50/50)**, and Argentina own the softer right half.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
 
-| Team | Reach QF | Reach SF | Reach Final | **Win Cup** |
-|---|---:|---:|---:|---:|
-| France | 83% | 65% | 40% | **26%** |
-| Spain | 66% | 58% | 34% | **22%** |
-| Argentina | 90% | 66% | 40% | **21%** |
-| Brazil | 72% | 43% | 21% | **8%** |
-| England | 52% | 25% | 12% | **5%** |
-| Morocco | 69% | 23% | 10% | **4%** |
-| Portugal | 34% | 25% | 10% | **4%** |
-| Colombia | 58% | 20% | 9% | **3%** |
-| Mexico | 48% | 21% | 9% | **3%** |
-| *others* | | | | **<2% each** |
+| Team | Reach SF | Reach Final | **Win Cup** |
+|---|---:|---:|---:|
+| Spain | 84% | 46% | **31%** |
+| France | 71% | 39% | **24%** |
+| Argentina | 80% | 49% | **23%** |
+| England | 60% | 30% | **11%** |
+| Morocco | 29% | 11% | **5%** |
+| Norway | 40% | 14% | **3%** |
+| Switzerland | 21% | 7% | **2%** |
+| Belgium | 16% | 4% | **1%** |
 
-The single most-likely bracket (favourite at every tie) runs **France** past
-Spain in the semi-final and past Argentina in the final — predicted champion
-**France**. 
+The single most-likely bracket (favourite at every tie): **Spain** past France
+in the semi-final and past Argentina in the final — predicted champion
+**Spain**.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
