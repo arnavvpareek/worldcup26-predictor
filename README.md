@@ -6,14 +6,14 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 5/8 correct (62%)
+## Live scorecard · 6/9 correct (67%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
 | Round | Predicted | Result |
 |---|---|---|
 | Round of 16 | 8 picks | 5/8 correct |
-| Quarter-finals | 4 picks | pending |
+| Quarter-finals | 4 picks | 1/1 correct |
 | Semi-finals | – | – |
 | Final | – | – |
 
@@ -36,7 +36,7 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 
 | Match | Model pick | Confidence | Actual | Hit |
 |---|---|---|---|---|
-| France v Morocco | France | 72% | – | – |
+| France v Morocco | France | 72% | France | ✅ |
 | Spain v Belgium | Spain | 84% | – | – |
 | Norway v England | England | 61% | – | – |
 | Argentina v Switzerland | Argentina | 80% | – | – |
