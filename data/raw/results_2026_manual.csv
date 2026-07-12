@@ -15,4 +15,6 @@ date,home_team,away_team,home_score,away_score,tournament,city,country,neutral
 2026-07-06,Argentina,Egypt,3,2,FIFA World Cup,Atlanta,United States,True
 2026-07-07,Switzerland,Colombia,0,0,FIFA World Cup,Toronto,Canada,True
 2026-07-09,France,Morocco,2,0,FIFA World Cup,Boston,United States,True
-2026-07-11,Spain,Belgium,2,1,FIFA World Cup,Philadelphia,United States,TRUE
+2026-07-11,Spain,Belgium,2,1,FIFA World Cup,Philadelphia,United States,True
+2026-07-12,Argentina,Switzerland,1,1,FIFA World Cup,Dallas,United States,TRUE
+2026-07-12,Norway,England,1,1,FIFA World Cup,New York,United States,TRUE

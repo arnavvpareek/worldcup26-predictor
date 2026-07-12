@@ -6,15 +6,15 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 7/10 correct (70%)
+## Live scorecard · 9/12 correct (75%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
 | Round | Predicted | Result |
 |---|---|---|
 | Round of 16 | 8 picks | 5/8 correct |
-| Quarter-finals | 4 picks | 2/2 correct |
-| Semi-finals | – | – |
+| Quarter-finals | 4 picks | 4/4 correct |
+| Semi-finals | 2 picks | pending |
 | Final | – | – |
 
 <details><summary>Round of 16 picks</summary>
@@ -38,36 +38,41 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 |---|---|---|---|---|
 | France v Morocco | France | 72% | France | ✅ |
 | Spain v Belgium | Spain | 84% | Spain | ✅ |
-| Norway v England | England | 61% | – | – |
-| Argentina v Switzerland | Argentina | 80% | – | – |
+| Norway v England | England | 61% | England | ✅ |
+| Argentina v Switzerland | Argentina | 80% | Argentina | ✅ |
+
+</details>
+
+<details><summary>Semi-finals picks</summary>
+
+| Match | Model pick | Confidence | Actual | Hit |
+|---|---|---|---|---|
+| France v Spain | France | 53% | – | – |
+| Argentina v England | Argentina | 64% | – | – |
 
 </details>
 <!-- LIVE-ACCURACY:END -->
 
 ## The call — who wins the 2026 World Cup?
 
-Re-running the bracket **20,000 times** from the real quarter-finals (ratings
-updated after every played match), **Spain is now the favourite** — they beat
-Portugal while their QF opponent (Belgium) is the weakest side left, giving
-them the clearest route to the semis. The **France–Spain semi-final is a
-literal coin flip (50/50)**, and Argentina own the softer right half.
+Four teams left. Re-running the bracket **20,000 times** from the real
+semi-finals (ratings updated after every played match): **France vs Spain** is
+still essentially a coin flip — the two best teams meet a round early — while
+**Argentina** are clear favourites (64%) over an England side that needed
+extra time against Norway.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
 
-| Team | Reach SF | Reach Final | **Win Cup** |
-|---|---:|---:|---:|
-| Spain | 84% | 46% | **31%** |
-| France | 71% | 39% | **24%** |
-| Argentina | 80% | 49% | **23%** |
-| England | 60% | 30% | **11%** |
-| Morocco | 29% | 11% | **5%** |
-| Norway | 40% | 14% | **3%** |
-| Switzerland | 21% | 7% | **2%** |
-| Belgium | 16% | 4% | **1%** |
+| Team | Reach Final | **Win Cup** |
+|---|---:|---:|
+| France | 52% | **33%** |
+| Spain | 48% | **32%** |
+| Argentina | 64% | **24%** |
+| England | 36% | **11%** |
 
-The single most-likely bracket (favourite at every tie): **Spain** past France
+The single most-likely bracket (favourite at every tie): **France** past Spain
 in the semi-final and past Argentina in the final — predicted champion
-**Spain**.
+**France**.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
@@ -79,19 +84,19 @@ would be wrong on purpose. Match picks, by contrast, are locked before kickoff
 and never revised (see the scorecard above). Every snapshot below is preserved
 in the git history:
 
-| Title odds (%) | Before R16 (Jul 4) | Before QF (Jul 7) |
-|---|---:|---:|
-| Spain | 22 | **31** |
-| France | **26** | 24 |
-| Argentina | 21 | 23 |
-| England | 5 | 11 |
-| Brazil | 8 | *eliminated* |
+| Title odds (%) | Before R16 (Jul 4) | Before QF (Jul 7) | Before SF (Jul 12) |
+|---|---:|---:|---:|
+| France | **26** | 24 | **33** |
+| Spain | 22 | **31** | 32 |
+| Argentina | 21 | 23 | 24 |
+| England | 5 | 11 | 11 |
+| Brazil | 8 | *eliminated* | – |
 
-The same three teams have topped every forecast; Spain edged ahead by beating
-Portugal while drawing the weakest quarter-final opponent (Belgium), and
-France's odds dipped as Morocco — their QF opponent — kept winning big. A
-champion call is one sample; the model's real track record is the match-level
-scorecard at the top.
+The same three teams have topped every forecast, trading the lead as results
+land: Spain edged ahead by beating Portugal while drawing weak Belgium; France
+snatched it back with a clean 2-0 quarter-final while Argentina and England
+both needed extra time. A champion call is one sample; the model's real track
+record is the match-level scorecard at the top.
 
 ## How it works at a glance
 

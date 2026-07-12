@@ -51,6 +51,8 @@ FIXTURES = [
     ("QF", "Spain", "Belgium"),
     ("QF", "Norway", "England"),
     ("QF", "Argentina", "Switzerland"),
+    ("SF", "France", "Spain"),
+    ("SF", "Argentina", "England"),
 ]
 
 COLUMNS = ["round", "home", "away", "pred_advance", "pred_prob", "exp_score",
