@@ -33,12 +33,8 @@ SEED = 42
 # Adjacent pairs are the current round's ties; winners climb the tree.
 # Quarter-finals after the real R16 results (left half first):
 R16_BRACKET = [
-    # --- left half ---
-    "France", "Morocco",          # QF1 \_ SF1
-    "Spain", "Belgium",           # QF2 /
-    # --- right half ---
-    "Norway", "England",          # QF3 \_ SF2
-    "Argentina", "Switzerland",   # QF4 /
+    "France", "Spain",            # SF1
+    "Argentina", "England",       # SF2
 ]
 
 # Winners of a round of this size have "reached" the next stage.
