@@ -6,7 +6,7 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 9/12 correct (75%)
+## Live scorecard · 9/13 correct (69%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
@@ -14,7 +14,7 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 |---|---|---|
 | Round of 16 | 8 picks | 5/8 correct |
 | Quarter-finals | 4 picks | 4/4 correct |
-| Semi-finals | 2 picks | pending |
+| Semi-finals | 2 picks | 0/1 correct |
 | Final | – | – |
 
 <details><summary>Round of 16 picks</summary>
@@ -47,7 +47,7 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 
 | Match | Model pick | Confidence | Actual | Hit |
 |---|---|---|---|---|
-| France v Spain | France | 53% | – | – |
+| France v Spain | France | 53% | Spain | ❌ |
 | Argentina v England | Argentina | 64% | – | – |
 
 </details>
@@ -55,24 +55,20 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 
 ## The call — who wins the 2026 World Cup?
 
-Four teams left. Re-running the bracket **20,000 times** from the real
-semi-finals (ratings updated after every played match): **France vs Spain** is
-still essentially a coin flip — the two best teams meet a round early — while
-**Argentina** are clear favourites (64%) over an England side that needed
-extra time against Norway.
+**Spain are into the final.** Their 2-0 win over France (the model's one semi-
+final miss — we had it a 53/47 coin flip) jumped Spain's rating and made them
+the **clear favourite at 72%**. They now await **Argentina or England**, who
+meet in the second semi-final — the model favours **Argentina (64%)**.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
 
 | Team | Reach Final | **Win Cup** |
 |---|---:|---:|
-| France | 52% | **33%** |
-| Spain | 48% | **32%** |
-| Argentina | 64% | **24%** |
-| England | 36% | **11%** |
+| Spain | *in the final* | **72%** |
+| Argentina | 64% | **20%** |
+| England | 36% | **8%** |
 
-The single most-likely bracket (favourite at every tie): **France** past Spain
-in the semi-final and past Argentina in the final — predicted champion
-**France**.
+Predicted champion: **Spain**.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
