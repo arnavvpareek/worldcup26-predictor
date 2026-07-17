@@ -6,7 +6,7 @@ classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
 against the tournament as it happens.
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 9/13 correct (69%)
+## Live scorecard · 10/14 correct (71%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
@@ -14,8 +14,8 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 |---|---|---|
 | Round of 16 | 8 picks | 5/8 correct |
 | Quarter-finals | 4 picks | 4/4 correct |
-| Semi-finals | 2 picks | 0/1 correct |
-| Final | – | – |
+| Semi-finals | 2 picks | 1/2 correct |
+| Final | 1 picks | pending |
 
 <details><summary>Round of 16 picks</summary>
 
@@ -48,27 +48,34 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 | Match | Model pick | Confidence | Actual | Hit |
 |---|---|---|---|---|
 | France v Spain | France | 53% | Spain | ❌ |
-| Argentina v England | Argentina | 64% | – | – |
+| Argentina v England | Argentina | 64% | Argentina | ✅ |
+
+</details>
+
+<details><summary>Final picks</summary>
+
+| Match | Model pick | Confidence | Actual | Hit |
+|---|---|---|---|---|
+| Spain v Argentina | Spain | 66% | – | – |
 
 </details>
 <!-- LIVE-ACCURACY:END -->
 
 ## The call — who wins the 2026 World Cup?
 
-**Spain are into the final.** Their 2-0 win over France (the model's one semi-
-final miss — we had it a 53/47 coin flip) jumped Spain's rating and made them
-the **clear favourite at 72%**. They now await **Argentina or England**, who
-meet in the second semi-final — the model favours **Argentina (64%)**.
+**The final is set: Spain vs Argentina.** Spain's run through Portugal, Belgium
+and France pushed their rating to a tournament-high **2245**, and the model
+makes them clear favourites to lift the trophy.
 
-<p align="center"><img src="docs/title_odds.svg" alt="Bar chart of each team's probability of winning the 2026 World Cup" width="680"></p>
+<p align="center"><img src="docs/title_odds.svg" alt="Bar chart of Spain and Argentina's probability of winning the 2026 World Cup" width="680"></p>
 
-| Team | Reach Final | **Win Cup** |
-|---|---:|---:|
-| Spain | *in the final* | **72%** |
-| Argentina | 64% | **20%** |
-| England | 36% | **8%** |
+| Team | **Win Cup** |
+|---|---:|
+| Spain | **66%** |
+| Argentina | **34%** |
 
-Predicted champion: **Spain**.
+Predicted champion: **Spain** — the last pick on the scorecard, pending the
+final.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
@@ -80,19 +87,19 @@ would be wrong on purpose. Match picks, by contrast, are locked before kickoff
 and never revised (see the scorecard above). Every snapshot below is preserved
 in the git history:
 
-| Title odds (%) | Before R16 (Jul 4) | Before QF (Jul 7) | Before SF (Jul 12) |
-|---|---:|---:|---:|
-| France | **26** | 24 | **33** |
-| Spain | 22 | **31** | 32 |
-| Argentina | 21 | 23 | 24 |
-| England | 5 | 11 | 11 |
-| Brazil | 8 | *eliminated* | – |
+| Title odds (%) | Before R16 | Before QF | Before SF | Final |
+|---|---:|---:|---:|---:|
+| Spain | 22 | **31** | 32 | **66** |
+| France | **26** | 24 | **33** | *out (SF)* |
+| Argentina | 21 | 23 | 24 | 34 |
+| England | 5 | 11 | 11 | *out (SF)* |
+| Brazil | 8 | *out (R16)* | – | – |
 
-The same three teams have topped every forecast, trading the lead as results
-land: Spain edged ahead by beating Portugal while drawing weak Belgium; France
-snatched it back with a clean 2-0 quarter-final while Argentina and England
-both needed extra time. A champion call is one sample; the model's real track
-record is the match-level scorecard at the top.
+The same three teams topped every forecast, trading the lead as results landed:
+Spain edged ahead by beating Portugal, France snatched it back with a clean 2-0
+quarter-final, then Spain seized it for good by winning the France semi-final.
+A champion call is one sample; the model's real track record is the match-level
+scorecard at the top.
 
 ## How it works at a glance
 
