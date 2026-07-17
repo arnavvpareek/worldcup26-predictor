@@ -198,6 +198,23 @@ written once and never recomputed, so [`knockout_tracking.csv`](data/processed/k
 is an honest, timestamped record of how the model does as the 2026 knockouts
 actually play out — the headline accuracy number grows with every round.
 
+## The forecast evolving, round by round
+
+The clearest picture of the model at work: the title odds narrowing from a
+wide-open field of 16 to a two-horse final, re-computed after every real
+result. All four charts share the **same 0–70% scale**, so longer bars mean a
+more confident forecast — watch the field concentrate as it shrinks. Trace a
+team by colour: **Spain** (teal) climbs 22% → 66%, **France** (coral) leads
+before the semis then exits, **Argentina** (purple) holds steady throughout.
+
+<p align="center"><img src="docs/odds_r16.svg" alt="Title odds before the Round of 16" width="640"></p>
+<p align="center"><img src="docs/odds_qf.svg" alt="Title odds before the quarter-finals" width="640"></p>
+<p align="center"><img src="docs/odds_sf.svg" alt="Title odds before the semi-finals" width="640"></p>
+<p align="center"><img src="docs/odds_final.svg" alt="Title odds for the final" width="640"></p>
+
+Each snapshot is also preserved in the git history and summarised in the table
+under [The call](#the-call--who-wins-the-2026-world-cup) above.
+
 ## Data
 
 Kaggle: *International football results from 1872 to 2026* (martj42).
