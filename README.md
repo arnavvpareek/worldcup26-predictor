@@ -2,11 +2,12 @@
 
 Predicts every 2026 FIFA World Cup knockout match — from-scratch and fully
 explainable (**Elo → Poisson goals → Monte Carlo bracket**, no black-box
-classifier). Backtested at **76.6%** on 12,000+ matches, and now graded **live**
-against the tournament as it happens.
+classifier). Backtested at **76.6%** on 12,000+ matches, then graded **live**
+across all 15 knockout games: **11/15 correct (73%), Brier score 0.163** — and
+it called **Spain** as champion. 🏆
 
 <!-- LIVE-ACCURACY:START -->
-## Live scorecard · 10/14 correct (71%)
+## Live scorecard · 11/15 correct (73%)
 
 Every pick is committed to git **before kickoff**, then graded as results land — so this fills in round by round as WC2026 plays out.
 
@@ -15,7 +16,7 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 | Round of 16 | 8 picks | 5/8 correct |
 | Quarter-finals | 4 picks | 4/4 correct |
 | Semi-finals | 2 picks | 1/2 correct |
-| Final | 1 picks | pending |
+| Final | 1 picks | 1/1 correct |
 
 <details><summary>Round of 16 picks</summary>
 
@@ -56,26 +57,27 @@ Every pick is committed to git **before kickoff**, then graded as results land �
 
 | Match | Model pick | Confidence | Actual | Hit |
 |---|---|---|---|---|
-| Spain v Argentina | Spain | 66% | – | – |
+| Spain v Argentina | Spain | 66% | Spain | ✅ |
 
 </details>
 <!-- LIVE-ACCURACY:END -->
 
-## The call — who wins the 2026 World Cup?
+## The call — champions of the 2026 World Cup 🏆
 
-**The final is set: Spain vs Argentina.** Spain's run through Portugal, Belgium
-and France pushed their rating to a tournament-high **2245**, and the model
-makes them clear favourites to lift the trophy.
+**Spain — called it.** They beat Argentina 1-0 after extra time in the final,
+and the model had them as favourites (66%) from the moment the tie was set. It's
+the exact arc the forecast tracked all tournament: from a **22% longshot in a
+field of 16**, Spain climbed every round to lift the trophy.
 
 <p align="center"><img src="docs/title_odds.svg" alt="Bar chart of Spain and Argentina's probability of winning the 2026 World Cup" width="680"></p>
 
-| Team | **Win Cup** |
-|---|---:|
-| Spain | **66%** |
-| Argentina | **34%** |
+| Team | Win Cup (before the final) | Result |
+|---|---:|---|
+| Spain | **66%** | 🏆 **Champions** |
+| Argentina | 34% | Runners-up |
 
-Predicted champion: **Spain** — the last pick on the scorecard, pending the
-final.
+The champion prediction landed — and, like every pick, it was git-committed
+before kickoff.
 
 Full numbers: [`data/processed/tournament_probabilities.csv`](data/processed/tournament_probabilities.csv).
 
